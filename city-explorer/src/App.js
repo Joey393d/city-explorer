@@ -47,8 +47,8 @@ class App extends React.Component {
 
 
   getWeatherInfo = async () => {
-    let response = await axios.get(apiUrl + '/weather');
-    console.log(response);
+    let response = await axios.get(`${apiUrl}/weather`);
+    console.log("this is the getWeatherInfo", response);
 
     this.setState({
       weather: response.data,
@@ -73,7 +73,7 @@ class App extends React.Component {
           <ul>
             {this.state.weather.map(
               (weatherObj, index) => (
-                <li key={index}>{weatherObj}</li>
+                <li key={index}>{weatherObj.Seattle}</li>
             )
             )}
 

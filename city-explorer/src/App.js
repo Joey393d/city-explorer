@@ -4,6 +4,8 @@ import './App.css';
 import Map from './map';
 
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 class App extends React.Component {
   
   state = {
@@ -39,7 +41,15 @@ class App extends React.Component {
 
     const location = response.data[0];
     this.setState({ location });
+
+    this.getWeatherInfo();
   };
+
+
+  getWeatherInfo = async () => {
+    let response = await axios.get(apiUrl + '/weather');
+    console.log(response);
+  }
 
 
   render() {

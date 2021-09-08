@@ -49,7 +49,11 @@ class App extends React.Component {
   getWeatherInfo = async () => {
     let response = await axios.get(apiUrl + '/weather');
     console.log(response);
-  }
+
+    this.setState({
+      weather: response.data,
+    });
+  };
 
 
   render() {
@@ -65,7 +69,16 @@ class App extends React.Component {
             <button type="submit">Search</button>
           </div>
         </form>
+        {this.state.weather &&
+          <ul>
+            {this.state.weather.map(
+              (weatherObj, index) => (
+                <li key={index}>{weatherObj}</li>
+            )
+            )}
 
+          </ul>
+        }
         {this.state.q &&
           <>
             <h2>Search: {this.state.q}</h2>

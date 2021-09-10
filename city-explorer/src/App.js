@@ -45,6 +45,16 @@ class App extends React.Component {
     this.getWeatherInfo();
   };
 
+  getPhotos = async (query) => {
+    const response = await axios.get(`${apiUrl}/photo`, {
+      params: {
+        q: query,
+      },
+    });
+
+    this.setState({ photos: response.data });
+  }
+
 
   getWeatherInfo = async () => {
     let response = await axios.get(`${apiUrl}/weather`);
@@ -58,6 +68,9 @@ class App extends React.Component {
 
   render() {
     return (
+
+      
+
       <div className="App">
         <form onSubmit={this.handleSearch}>
           <label>
@@ -92,10 +105,20 @@ class App extends React.Component {
               : <p>Loading...</p> 
               
             } 
+            
             </>  
             
         }
       </div>
+      >
+       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+       {this.state.photos && this.state.photos.map(photo => (
+         <div style={{ width: '200px' }}>
+           <h3>By {photo.photographer}</h3>
+           <img src={photo.img_url} style={{ width: '100%' }} />
+         </div>
+       ))}
+     </div>
     );
   }
 
